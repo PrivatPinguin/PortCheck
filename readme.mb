@@ -1,0 +1,11 @@
+Portscanner with or without GUI
+
+starts gui with scriptstart
+
+or use:
+  python3 scan_ip_ports.py gui
+
+script interface:
+  python3 scan_ip_ports.py <ip> [ optional:<star_port>, <end_port>, <file> ]
+
+Note: <file> is <ip> + <file(name)>
