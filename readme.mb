@@ -1,14 +1,18 @@
-Portscanner with or without GUI
+# Portscanner with or without GUI
 
-superfast threaded scanner.
-scanns all 65535 ports in a view seconds/minutes (depends on operating system)
+![Privat Pinguin - for Public Fun](http://privat-servguin.dynv6.net/logo/penguin.png)
 
-starts gui with scriptstart
+##### superfast threaded scanner.
+###### scanns all 65535 ports in a view seconds/minutes (depends on operating system)
 
-or use:
-  python3 scan_ip_ports.py gui
+**Autostart in GUI mode**
 
-script interface:
-  python3 scan_ip_ports.py <ip> [ optional:<star_port>, <end_port>, <file> ]
+**Manual GUI mode:**
+> python3 scan_ip_ports.py gui
 
-Note: <file> is <ip> + <file(name)>
+**Script Interface:**
+> python3 scan_ip_ports.py **<ip>**  optional:_<star_port>_, optional:_<end_port>_, optional:_<file>_[^1]  
+
+
+
+[^1]: Note: **<file>** will be the IP + custom/preset filename.
