@@ -19,8 +19,8 @@ _depends on operating system_
 ## Script Interface
 
 **Manual script mode**
-> _python3 scan_ip_ports.py_ **<ip>**  optional:_<star_port>_, optional:_<end_port>_, optional:_<file>_[^1]  
+> _python3 scan_ip_ports.py_ **<ip>**  optional:_<star_port>_, optional:_<end_port>_, optional:_\<file\>_ [^1]  
 
 
 
-[^1]: Note: **<file>** will be the IP + custom/preset filename.
+[^1]: Note: **\<file\>** will be the IP + custom/preset filename.
