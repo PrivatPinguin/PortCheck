@@ -7,24 +7,24 @@ ERROR_MSG_02 = "\tError\tStart port or end port is out of range\n"
 FILE_FOOTENER = "_portscan.log"
 FILE_IS_OPEN = False
 
-def stringify_open_port(port):
+def __stringify_open_port(port):
     return "Port {} is open".format(port)
 
-def scan_ip_ports_file(ip, port, file):
+def __scan_ip_ports_file(ip, port, file):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(0.5)
         s.connect((ip, port))
         s.close()
-        file.write(stringify_open_port(port) + "\n")
-        print(stringify_open_port(port))
+        file.write(__stringify_open_port(port) + "\n")
+        print(__stringify_open_port(port))
     except:
         # print("Port {} is closed".format(port)) # too fast to print in terminal 
         # file.write("Port {} is closed\n".format(port)) # uncomment to save to file
         pass 
 
 # try create a header string with the date and time and atache ip adress to it else create sting with ip adress
-def create_header_string(ip):
+def __create_header_string(ip):
     bs = "\n"
     try:
         import datetime
@@ -37,6 +37,9 @@ def create_header_string(ip):
 
 # check if ip is valid 
 def check_ip(ip):
+    """
+    checks if ip is reachable and valid
+    """
     try:
         socket.inet_aton(ip)
         return True
@@ -44,7 +47,7 @@ def check_ip(ip):
         return False
 
 # create a funktion that takes passed time and returns a string with the passed time
-def time_difference(time_then):
+def __time_difference(time_then):
     time_diff = ""
     try:
         import datetime
@@ -58,6 +61,13 @@ def time_difference(time_then):
 # a threaded funktion that takes an ip adress and scan it for open and closed port in a thread saves the results to a file
 # a funktion that starts a thread for each port in a range and saves the results to a file
 def threaded_scan_file(ip, start_port=1, end_port=65535, file=FILE_FOOTENER):
+    """
+    PortCheck
+    ---------
+    Checks the given IP for open Ports - if port is open: logs open ports in file.
+    use:
+    threaded_scan_file( IP as string | optional: Start-Port | optional: End-Port | optional: Custom-file-name )
+    """
     #checkif start_port and end_port are valid
     if end_port.lower() == "max":
         end_port = 65535
@@ -78,20 +88,20 @@ def threaded_scan_file(ip, start_port=1, end_port=65535, file=FILE_FOOTENER):
     if check_ip(ip):
         file = open(ip + FILE_FOOTENER, "w")
         #opens a new file
-        header, time_now= create_header_string(ip)
+        header, time_now= __create_header_string(ip)
         file.write(header)
         print(header)
         for port in range(start_port, end_port): #  65535):
-            # chrates a threaded scan_ip_ports_file function
-            t = threading.Thread(target=scan_ip_ports_file, args=(ip, port, file))
+            # chrates a threaded __scan_ip_ports_file function
+            t = threading.Thread(target=__scan_ip_ports_file, args=(ip, port, file))
             t.start()
         t.join()
         file.close()
-        return time_difference(time_now)
+        return __time_difference(time_now)
     else:
         return (ERROR_MSG_HELP + ERROR_MSG_00)
 # opens file content
-def open_file(file, ip):
+def __open_file(file, ip):
     if not file:
         file = ip + FILE_FOOTENER
         #paste content of file to a sting
@@ -106,6 +116,13 @@ def open_file(file, ip):
 
 # create a gui that uses threaded_scan_file function where the user can enter ip adress and scan it for open and closed ports
 def gui_show():
+    """
+    PortCher GUI
+    ------------
+    opens a GUI to ender IP, Start-/End-Port and Filename
+    
+    check 'threaded_scan_file(*)' for more information.
+    """
     import tkinter as tk
     # create a window
     window = tk.Tk()
@@ -140,20 +157,20 @@ def gui_show():
     label_result = tk.Label(window, text="", fg="red", anchor="w", justify="left")
     label_result.grid(column=1, row=5)
     # create a button when pressed it gets the result of the file and stores it in label_result
-    def get_result():
+    def __get_result():
         try:
         # show wait animation while scanning
             label_result.config(text="Scanning...")
             window.update()
             scan_text = threaded_scan_file(ip_box.get(), start_port_box.get(), end_port_box.get(), file_box.get())
-            result = scan_text + "\n" + open_file(file_box.get(), ip_box.get())
+            result = scan_text + "\n" + __open_file(file_box.get(), ip_box.get())
             label_result.config(text=result)
             window.update()
         except:
             label_result.config(text="Error")
         
     # create a button
-    button = tk.Button(window, text="Scan", command=get_result)
+    button = tk.Button(window, text="Scan", command=__get_result)
     button.grid(column=1, row=4)
     # start the window
     window.mainloop()
