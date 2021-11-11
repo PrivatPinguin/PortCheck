@@ -1,5 +1,8 @@
 Portscanner with or without GUI
 
+superfast threaded scanner.
+scanns all 65535 ports in a view seconds/minutes (depends on operating system)
+
 starts gui with scriptstart
 
 or use:
