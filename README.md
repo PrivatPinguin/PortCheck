@@ -3,7 +3,7 @@
 ![Privat Pinguin - for Public Fun](http://privat-servguin.dynv6.net/logo/penguin.png)
 
 ### superfast threaded scanner.
-###### scanns all **65535** ports in a view seconds/minutes 
+- scanns all **65535** ports in a view seconds/minutes 
 _depends on operating system_
 
 #### **Autostart in GUI mode**
