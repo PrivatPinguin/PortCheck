@@ -123,7 +123,10 @@ def gui_show():
     
     check 'threaded_scan_file(*)' for more information.
     """
-    import tkinter as tk
+    try:
+        import tkinter as tk
+    except:
+        return 'ImportError\tInstall TKinter\n\nLinux\tsudo apt-get install python3-tk\n\nWindows\tpip install python-tk\nor\tpip install python3-tk'
     # create a window
     window = tk.Tk()
     window.title("Port Scanner")
